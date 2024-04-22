@@ -7,11 +7,9 @@ export const Context = React.createContext();
 
 const Content = () => {
 
-  const [tags, setTags] = React.useState([]);
   const [inclusion, setInclusion] = React.useState([]);
   const [exclusion, setExclusion] = React.useState([]);
   const contextProviderValues = {
-    tags, setTags,
     inclusion, setInclusion,
     exclusion, setExclusion
   };

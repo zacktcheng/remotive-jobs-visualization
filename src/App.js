@@ -1,10 +1,13 @@
+import React from "react";
 import Content from "./component/compound/Content";
 
 const App = () => {
 
-  return (
-    <Content />
-  );
-}
+  React.useEffect(() => {
+    sessionStorage.clear();
+  }, []);
+
+  return <Content />;
+};
 
 export default App;

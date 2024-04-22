@@ -4,7 +4,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 const Tabs = ({ titles, children }) => {
 
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState('0');
+  
   const tabContextSx = {
     width: '100%'
   };
@@ -16,9 +17,9 @@ const Tabs = ({ titles, children }) => {
   return (
     <TabContext value={tabIndex} sx={tabContextSx}>
       <TabList onChange={handleChange} aria-label="lab API tabs example" sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        {titles.map((title, index) => <Tab key={index} label={title} value={index} />)}
+        {titles.map((title, index) => <Tab key={index} label={title} value={`${index}`} wrapped />)}
       </TabList>
-      {children.map((child, index) => <TabPanel key={index} value={index}>{child}</TabPanel>)}
+      {children.map((child, index) => <TabPanel key={index} value={`${index}`}>{child}</TabPanel>)}
     </TabContext>
   );
 }

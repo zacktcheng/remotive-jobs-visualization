@@ -7,48 +7,39 @@ const FilterSection = () => {
 
   const { inclusion, setInclusion, exclusion, setExclusion } = React.useContext(Context);
 
-  const handleDelete = (tag, isExcluding) => {
-    if (isExcluding) {
-      if (inclusion.indexOf(tag) !== -1) {
-        const index = inclusion.indexOf(tag);
-        setInclusion(inclusion.slice(0, index).concat(inclusion.slice(index + 1, inclusion.length)));
-      }
-      if (exclusion.indexOf(tag) === -1) {
-        const index = exclusion.indexOf(tag);
-        setExclusion([...exclusion, tag]);
-      }
-    } else {
-      if (inclusion.indexOf(tag) === -1) {
-        const index = inclusion.indexOf(tag);
-        setInclusion([...inclusion, tag]);
-      }
-      if (exclusion.indexOf(tag) !== -1) {
-        const index = exclusion.indexOf(tag);
-        setExclusion(exclusion.slice(0, index).concat(exclusion.slice(index + 1, exclusion.length)));
-      }
-    }
+  const handleExclude = (tag) => {
+    setInclusion([...inclusion].filter(elem => elem !== tag));
+    setExclusion([...exclusion, tag]);
+  }
+
+  const handleInclude = (tag) => {
+    setInclusion([...inclusion, tag]);
+    setExclusion([...exclusion].filter(elem => elem !== tag));
   }
 
   const filterSectionSx = {};
-  const inclusionSx = {};
-  const exclusionSx = {};
+  const fitlterSectionHeaderSx = {
+    '& .MuiCardHeader-title': {
+      fontSize: '.75rem'
+    }
+  };
 
   return (
     <Section sectionSx={filterSectionSx}>
-      <Section title={'Included tags'} sectionSx={inclusionSx}>
+      <Section title={'Included tags'} sectionSx={fitlterSectionHeaderSx}>
         <Grid container spacing={.5}>
           {inclusion.map((tag, index) => (
           <Grid item key={index}>
-            <Chip label={tag} size="small" onDelete={() => handleDelete(tag, false)} />
+            <Chip label={tag} size="small" onDelete={() => handleExclude(tag)} />
           </Grid>
           ))}
         </Grid>
       </Section>
-      <Section title={'Excluded tags'} sectionSx={exclusionSx}>
+      <Section title={'Excluded tags'} sectionSx={fitlterSectionHeaderSx}>
         <Grid container spacing={.5}>
-          {inclusion.map((tag, index) => (
+          {exclusion.map((tag, index) => (
           <Grid item key={index}>
-            <Chip label={tag} size="small" onDelete={() => handleDelete(tag, true)} />
+            <Chip label={tag} size="small" onDelete={() => handleInclude(tag)} />
           </Grid>
           ))}
         </Grid>
