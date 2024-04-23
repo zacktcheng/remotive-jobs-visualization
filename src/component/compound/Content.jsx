@@ -7,9 +7,11 @@ export const Context = React.createContext();
 
 const Content = () => {
 
+  const [jobPostJSONs, setJobPostJSONs] = React.useState([]);
   const [inclusion, setInclusion] = React.useState([]);
   const [exclusion, setExclusion] = React.useState([]);
   const contextProviderValues = {
+    jobPostJSONs, setJobPostJSONs,
     inclusion, setInclusion,
     exclusion, setExclusion
   };

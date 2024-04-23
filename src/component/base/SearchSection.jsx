@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const SearchSection = () => {
 
-  const { setInclusion, setExclusion } = React.useContext(Context);
+  const { setJobPostJSONs, setInclusion, setExclusion } = React.useContext(Context);
   const [input, setInput] = React.useState('');
   const sectionSx = {};
   const boxSx = {
@@ -35,7 +35,7 @@ const SearchSection = () => {
       const jobPostJSONs = await getJobPostJSONs(REMOTIVE_URL_DEV);
       const keywords = input.trim().split(' ');
       const filteredJobPostJONs = filterJobPostJSONs(jobPostJSONs, keywords);
-      sessionStorage.setItem('searchResult', JSON.stringify(filteredJobPostJONs));
+      setJobPostJSONs(filteredJobPostJONs);
       const tags = getTags(filteredJobPostJONs);
       setInclusion([]);
       setExclusion(tags);

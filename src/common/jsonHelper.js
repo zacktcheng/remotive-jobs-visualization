@@ -1,4 +1,4 @@
-import { JOB_KEYS } from "../data/constant";
+import { JOB_ATTR_SET } from "../data/constant";
 
 export const getInnerText = (str) => {
   const arr = [];
@@ -22,7 +22,7 @@ export const getInnerText = (str) => {
 
 export const getJobPostJSON = (job) => {
   const jobPostJSON = {};
-  for (const jobKey of JOB_KEYS) {
+  for (const jobKey of JOB_ATTR_SET) {
     if (job.hasOwnProperty(jobKey)) {
       if (jobKey === 'description') {
           jobPostJSON[jobKey] = getInnerText(job[jobKey]);
