@@ -50,7 +50,7 @@ const StackedBarChartSvg = ({ data, dimension }) => {
     selection = appendStackedBars(xScale, yScale, margin, data, key, selection);
     selection = appendAxis(selection, 'x', xScale, margin, length, text.x);
     selection = appendAxis(selection, 'y', yScale, margin, length, text.y);
-  },[]);
+  },[data, dimension]);
 
   return <svg width={dimension.x} height={dimension.y} ref={ref} />;
 }

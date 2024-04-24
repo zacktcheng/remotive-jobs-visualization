@@ -30,7 +30,7 @@ const BarChartSvg = ({ data, dimension }) => {
     selection = appendBars(xScale, yScale, length.y, margin, data, key, value, selection);
     selection = appendAxis(selection, 'x', xScale, margin, length, text.x);
     selection = appendAxis(selection, 'y', yScale, margin, length, text.y);
-  }, []);
+  }, [data, dimension]);
 
   return <svg width={dimension.x} height={dimension.y} ref={ref} />;
 }

@@ -11,13 +11,17 @@ const Content = () => {
   const [inclusion, setInclusion] = React.useState([]);
   const [exclusion, setExclusion] = React.useState([]);
   const [barChartData, setBarChartData] = React.useState([]);
-  const [sBarChartData, setSBarChartData] = React.useState([]);
+  const [stackedBarChartData, setStackedBarChartData] = React.useState([]);
   const [lineChartData, setLineChartData] = React.useState([]);
   const [pieChartData, setPieChartData] = React.useState([]);
   const contextProviderValues = {
     jobPostJSONs, setJobPostJSONs,
     inclusion, setInclusion,
-    exclusion, setExclusion
+    exclusion, setExclusion,
+    barChartData, setBarChartData,
+    stackedBarChartData, setStackedBarChartData,
+    lineChartData, setLineChartData,
+    pieChartData, setPieChartData
   };
 
   return (

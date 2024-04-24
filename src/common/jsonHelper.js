@@ -1,4 +1,4 @@
-import { JOB_ATTR_SET } from "../data/constant";
+import { JOB_ATTR_SET, SPECIAL_CHAR_REGEX } from "../data/constant";
 
 export const getInnerText = (str) => {
   const arr = [];
@@ -39,7 +39,7 @@ export const getJobPostJSON = (job) => {
 export const filterJobPostJSONs = (jobPostJSONs, keywords) => {
   const filtereds = [];
   for (const json of jobPostJSONs) {
-    const src = (json.title + json.tags + json.description).toLowerCase();
+    const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
     let hasKeyword = true;
     for (const keyword of keywords) {
       if (src.indexOf(keyword.toLowerCase()) === -1) {
@@ -68,3 +68,32 @@ export const getTags = (jobPostJSONs) => {
   // }
   return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 16).map(elem => elem[0]);
 }
+
+export const toWordArray = text => text.replaceAll(SPECIAL_CHAR_REGEX, ' ').split(' ').filter(elem => elem !== '');
+
+export const sortTrimJSONs = (jsons, maxSize) => {
+  const sortedTrimmedFreqObj = Object.entries(jsons)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, maxSize)
+    .reduce((accu, curr) => {
+      if (curr[1] === 0) return accu;
+      return {
+        ...accu,
+        [curr[0]]: curr[1]
+      };
+    }, {});
+    return sortedTrimmedFreqObj;
+}
+
+export const getHighFreqJSONs = (jsons, keywords, maxSize = 12) => {
+  const obj = keywords.reduce((accu, curr) => { return { ...accu, [curr]: 0 } }, {});
+  for (const json of jsons) {
+    const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
+    const set = new Set(toWordArray(src));
+    for (const keyword of keywords) {
+      if (set.has(keyword)) obj[keyword] += 1;
+    }
+  }
+  return sortTrimJSONs(obj, maxSize);
+}
+
