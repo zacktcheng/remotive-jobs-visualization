@@ -10,6 +10,10 @@ const Content = () => {
   const [jobPostJSONs, setJobPostJSONs] = React.useState([]);
   const [inclusion, setInclusion] = React.useState([]);
   const [exclusion, setExclusion] = React.useState([]);
+  const [barChartData, setBarChartData] = React.useState([]);
+  const [sBarChartData, setSBarChartData] = React.useState([]);
+  const [lineChartData, setLineChartData] = React.useState([]);
+  const [pieChartData, setPieChartData] = React.useState([]);
   const contextProviderValues = {
     jobPostJSONs, setJobPostJSONs,
     inclusion, setInclusion,

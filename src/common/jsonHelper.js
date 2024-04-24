@@ -37,16 +37,17 @@ export const getJobPostJSON = (job) => {
 }
 
 export const filterJobPostJSONs = (jobPostJSONs, keywords) => {
-  if (!(keywords && keywords instanceof Array && keywords.length > 0)) return jobPostJSONs;
   const filtereds = [];
   for (const json of jobPostJSONs) {
     const src = (json.title + json.tags + json.description).toLowerCase();
+    let hasKeyword = true;
     for (const keyword of keywords) {
-      if (src.indexOf(keyword.toLowerCase()) !== -1) {
-        filtereds.push(json);
+      if (src.indexOf(keyword.toLowerCase()) === -1) {
+        hasKeyword = false;
         break;
       }
     }
+    if (hasKeyword) filtereds.push(json);
   }
   return filtereds;
 }

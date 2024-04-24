@@ -4,7 +4,7 @@ import Section from "./Section";
 import { filterJobPostJSONs, getTags } from "../../common/jsonHelper";
 import { getJobPostJSONs } from "../../common/restClient";
 import { Box, Button, InputBase } from "@mui/material";
-import { REMOTIVE_URL_DEV } from "../../data/constant";
+import { REMOTIVE_API_URL_DEV } from "../../data/constant";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchSection = () => {
@@ -32,7 +32,7 @@ const SearchSection = () => {
   const handleSearch = async () => {
     try {
       sessionStorage.clear();
-      const jobPostJSONs = await getJobPostJSONs(REMOTIVE_URL_DEV);
+      const jobPostJSONs = await getJobPostJSONs(REMOTIVE_API_URL_DEV);
       const keywords = input.trim().split(' ');
       const filteredJobPostJONs = filterJobPostJSONs(jobPostJSONs, keywords);
       setJobPostJSONs(filteredJobPostJONs);
