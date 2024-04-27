@@ -1,31 +1,28 @@
 import React from "react";
 import { Context } from "./Content";
 import { PROG_LANGS, LIB_FRAMEWORKS } from "../../data/constant";
-import { toWordArray, sortTrimJSONs, getHighFreqJSONs } from "../../common/jsonHelper";
+import { toWordArray, sortTrimJson, getPieChartData } from "../../common/jsonHelper";
 import Section from "../base/Section";
-import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import PieChartSvg from "../chartSvg/PieChartSvg";
+import Toggles from "../base/Toggles";
 
 const PieChart = () => {
 
   const { jobPostJSONs, pieChartData, setPieChartData } = React.useContext(Context);
-  const [pos, setPos] = React.useState();
-  const BtnPosTextMap = {
-    left: 'Programming Languages',
-    center: 'Libraries & Framworks',
-    right: 'Location Regions'
-  };
-  const handleChange = (event, nextPos) => {
-    setPos(nextPos);
+  const [toggleds, setToggleds] = React.useState();
+  const btnTxts = ['Programming Languages', 'Libraries & Framworks','Location Regions'];
+  const handleChange = (event, nextToggleds) => {
+    setToggleds(nextToggleds);
     let data;
-    switch (nextPos) {
-      case 'left':
-        data = getHighFreqJSONs(jobPostJSONs, PROG_LANGS);
+    console.log(nextToggleds);
+    switch (nextToggleds) {
+      case btnTxts[0]:
+        data = getPieChartData(jobPostJSONs, PROG_LANGS);
         break;
-      case 'center':
-        data = getHighFreqJSONs(jobPostJSONs, LIB_FRAMEWORKS);
+      case btnTxts[1]:
+        data = getPieChartData(jobPostJSONs, LIB_FRAMEWORKS);
         break;
-      case 'right':
+      case btnTxts[2]:
         const regions = {};
         for (const json of jobPostJSONs) {
           const locations = toWordArray(json['candidate_required_location']);
@@ -34,23 +31,18 @@ const PieChart = () => {
             else regions[location] = 1;
           }
         }
-        data = sortTrimJSONs(regions, 8);
+        data = sortTrimJson(regions, 8);
         break;
       default:
         data = {};
     }
+    console.log(data);
     setPieChartData(data);
   };
 
   return (
     <Section >
-      <ToggleButtonGroup value={pos} exclusive onChange={handleChange}>
-      {Object.keys(BtnPosTextMap).map((elem, index) => (
-        <ToggleButton key={index} value={elem} size="small">
-          <Typography variant="caption" display="block">{BtnPosTextMap[elem]}</Typography>
-        </ToggleButton>
-      ))}
-      </ToggleButtonGroup>
+      <Toggles btnTxts={btnTxts} handleChange={handleChange} toggleds={toggleds} />
       <PieChartSvg data={pieChartData} dimension={{ x: 400, y: 400 }} />
     </Section>
   );

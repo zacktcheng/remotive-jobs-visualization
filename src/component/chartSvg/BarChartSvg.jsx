@@ -25,6 +25,7 @@ const BarChartSvg = ({ data, dimension }) => {
 
   React.useEffect(() => {
     let selection = d3.select(ref.current);
+    selection.selectAll('*').remove();
     const xScale = d3.scaleBand(domain.x, [0, length.x]).padding(padding);
     const yScale = d3.scaleLinear(domain.y, [length.y, 0]);
     selection = appendBars(xScale, yScale, length.y, margin, data, key, value, selection);

@@ -24,7 +24,7 @@ const appendStackedBars = (xScale, yScale, margin, data, key, selection) => {
   .selectAll()
   .data(stackedData)
   .enter().append('g')
-    .attr('fill', datum => colors(datum.key))
+    .attr('fill', datum => {  return colors(datum.key) } )
     .selectAll('rect')
     .data(datum => datum)
     .enter().append('rect')
@@ -45,6 +45,7 @@ const StackedBarChartSvg = ({ data, dimension }) => {
 
   React.useEffect(() => {
     let selection = d3.select(ref.current);
+    selection.selectAll('*').remove();
     const xScale = d3.scaleBand(domain.x, [0, length.x]).padding(padding);
     const yScale = d3.scaleLinear(domain.y, [length.y, 0]);
     selection = appendStackedBars(xScale, yScale, margin, data, key, selection);

@@ -66,12 +66,12 @@ export const getTags = (jobPostJSONs) => {
   //     map[word] = map.hasOwnProperty(word) ? map[word] + 1 : 1;
   //   }
   // }
-  return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 16).map(elem => elem[0]);
+  return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 8).map(elem => elem[0]);
 }
 
 export const toWordArray = text => text.replaceAll(SPECIAL_CHAR_REGEX, ' ').split(' ').filter(elem => elem !== '');
 
-export const sortTrimJSONs = (jsons, maxSize) => {
+export const sortTrimJson = (jsons, maxSize) => {
   const sortedTrimmedFreqObj = Object.entries(jsons)
     .sort((a, b) => b[1] - a[1])
     .slice(0, maxSize)
@@ -85,7 +85,7 @@ export const sortTrimJSONs = (jsons, maxSize) => {
     return sortedTrimmedFreqObj;
 }
 
-export const getHighFreqJSONs = (jsons, keywords, maxSize = 12) => {
+export const getPieChartData = (jsons, keywords, maxSize = 8) => {
   const obj = keywords.reduce((accu, curr) => { return { ...accu, [curr]: 0 } }, {});
   for (const json of jsons) {
     const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
@@ -94,6 +94,6 @@ export const getHighFreqJSONs = (jsons, keywords, maxSize = 12) => {
       if (set.has(keyword)) obj[keyword] += 1;
     }
   }
-  return sortTrimJSONs(obj, maxSize);
+  return sortTrimJson(obj, maxSize);
 }
 

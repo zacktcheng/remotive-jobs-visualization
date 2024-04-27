@@ -41,6 +41,7 @@ const PieChartSvg = ({ data, dimension }) => {
 
   React.useEffect(() => {
     let selection = d3.select(ref.current);
+    selection.selectAll('*').remove();
     selection = appendPie(dimension, piedData, arcGenerator, selection);
     selection = appendAnnotation(dimension, piedData, arcGenerator, selection);
   }, [data, dimension]);
