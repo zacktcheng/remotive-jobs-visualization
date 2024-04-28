@@ -4,34 +4,7 @@ import Section from "../base/Section";
 import StackedBarChartSvg from "../chartSvg/StackedBarChartSvg";
 import BarChartSvg from "../chartSvg/BarChartSvg";
 import Toggles from "../base/Toggles";
-import { toWordArray } from "../../common/jsonHelper";
-import { SENIORITIES } from "../../data/constant";
-
-const getStackedBarChartData = (jsons, keywords) => {
-  const data = SENIORITIES.map(seniority => {
-    return keywords.reduce((accu, curr) => {
-      return { ...accu, [curr]: 0 }
-    }, { seniority });
-  });
-  for (const json of jsons) {
-    const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
-    const set = new Set(toWordArray(src));
-    if (set.has('jr') || set.has('junior')) {
-      const obj = data.find(elem => elem.seniority === 'jr');
-      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
-    } else if (set.has('sr') || set.has('senior')) {
-      const obj = data.find(elem => elem.seniority === 'sr');
-      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
-    } else if (set.has('lead') || set.has('manager')) {
-      const obj = data.find(elem => elem.seniority ===  'ld/mgr');
-      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
-    } else if (set.has('engineer') || set.has('developer')) {
-      const obj = data.find(elem => elem.seniority === 'md');
-      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
-    }
-  }
-  return data;
-}
+import { getExpChartData } from "../../common/jsonHelper";
 
 const StackedBarChart = () => {
 
@@ -39,12 +12,8 @@ const StackedBarChart = () => {
   const [toggleds, setToggleds] = React.useState(() => []);
   const handleChange = (event, nextToggleds) => {
     setToggleds(nextToggleds);
-    const data = getStackedBarChartData(jobPostJSONs, nextToggleds);
-    setStackedBarChartData(data);
-    console.log(data);
+    setStackedBarChartData(getExpChartData(jobPostJSONs, nextToggleds));
   }
-
-  const isDataReady = stackedBarChartData.length > 0 && Object.keys(stackedBarChartData[0]) > 1;
 
   return (
     <Section >

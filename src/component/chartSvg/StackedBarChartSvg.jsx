@@ -19,12 +19,12 @@ const appendStackedBars = (xScale, yScale, margin, data, key, selection) => {
   const attrs = Object.keys(data[0]).slice(1);
   const stackedData = d3.stack().keys(attrs)(data);
   const colors = d3.scaleOrdinal().domain(attrs).range(d3.schemeSet2).unknown('#ccc');
-
+  
   selection
   .selectAll()
   .data(stackedData)
   .enter().append('g')
-    .attr('fill', datum => {  return colors(datum.key) } )
+    .attr('fill', datum => colors(datum.key))
     .selectAll('rect')
     .data(datum => datum)
     .enter().append('rect')

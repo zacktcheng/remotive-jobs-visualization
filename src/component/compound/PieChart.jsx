@@ -36,7 +36,6 @@ const PieChart = () => {
       default:
         data = {};
     }
-    console.log(data);
     setPieChartData(data);
   };
 

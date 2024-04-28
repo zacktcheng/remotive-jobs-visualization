@@ -1,7 +1,7 @@
 import React from "react";
 import { Context } from "../compound/Content";
 import Section from "./Section";
-import { filterJobPostJSONs, getTags } from "../../common/jsonHelper";
+import { filterJobPostJSONs, getTags, toWordArray } from "../../common/jsonHelper";
 import { getJobPostJSONs } from "../../common/restClient";
 import { Box, Button, InputBase } from "@mui/material";
 import { REMOTIVE_API_URL_DEV } from "../../data/constant";
@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const SearchSection = () => {
 
-  const { setJobPostJSONs, setInclusion, setExclusion, setTags } = React.useContext(Context);
+  const { setJobPostJSONs, setTags } = React.useContext(Context);
   const [input, setInput] = React.useState('');
   const sectionSx = {};
   const boxSx = {
@@ -31,15 +31,11 @@ const SearchSection = () => {
   const handleInput = (event) => setInput(event.target.value);
   const handleSearch = async () => {
     try {
-      sessionStorage.clear();
       const jobPostJSONs = await getJobPostJSONs(REMOTIVE_API_URL_DEV);
-      const keywords = input.trim().split(' ');
+      const keywords = toWordArray(input);
       const filteredJobPostJONs = filterJobPostJSONs(jobPostJSONs, keywords);
       setJobPostJSONs(filteredJobPostJONs);
-      const tags = getTags(filteredJobPostJONs);
-      setTags(tags);
-      setInclusion([]);
-      setExclusion(tags);
+      setTags(getTags(filteredJobPostJONs));
     } catch (err) {
       console.log(err);
     }

@@ -44,3 +44,7 @@ export const getPaddingMarginLength = (dimension) => {
   const length = { x: dimension.x - margin.x * 2, y: dimension.y - margin.y * 2 };
   return { padding, margin, length };
 }
+
+export const getd3ColorMap = (attrs) => {
+  return d3.scaleOrdinal().domain(attrs).range(d3.schemeSet2).unknown('#ccc');
+}
