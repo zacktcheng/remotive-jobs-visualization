@@ -5,6 +5,7 @@ import StackedBarChartSvg from "../chartSvg/StackedBarChartSvg";
 import BarChartSvg from "../chartSvg/BarChartSvg";
 import Toggles from "../base/Toggles";
 import { getExpChartData } from "../../common/jsonHelper";
+import BarChart from "./BarChart";
 
 const StackedBarChart = () => {
 
@@ -19,7 +20,7 @@ const StackedBarChart = () => {
     <Section >
       <Toggles btnTxts={tags} handleChange={handleChange} toggleds={toggleds} />
       <StackedBarChartSvg data={stackedBarChartData} dimension={{ x: 400, y: 400 }} />
-      <BarChartSvg data={[{ language: 'F#', value: 1 }, { language: 'Java', value: 40 }, {language: 'Python', value: 60}]} dimension={{ x: 400, y: 400}} />
+      <BarChart toggleds={toggleds} />
     </Section>
   );
 }
