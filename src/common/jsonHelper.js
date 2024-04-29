@@ -1,4 +1,4 @@
-import { JOB_ATTR_SET, SPECIAL_CHAR_REGEX, SENIORITIES } from "../data/constant";
+import { JOB_ATTR_SET, SPECIAL_CHAR_REGEX, SENIORITIES, POP_DEV_ROLES } from "../data/constant";
 
 export const getInnerText = (str) => {
   const arr = [];
@@ -97,7 +97,7 @@ export const getPieChartData = (jsons, keywords, maxSize = 8) => {
   return sortTrimJson(obj, maxSize);
 }
 
-export const getDefault2dChartData = (keywords = ['frequency']) => {
+export const getDefaultExpChartData = (keywords = ['frequency']) => {
   return SENIORITIES.map(seniority => {
     return keywords.reduce((accu, curr) => {
       return { ...accu, [curr]: 0 }
@@ -105,8 +105,16 @@ export const getDefault2dChartData = (keywords = ['frequency']) => {
   });
 }
 
+export const getDefaultRoleChartData = (keywords = ['frequency']) => {
+  return POP_DEV_ROLES.map(role => {
+    return keywords.reduce((accu, curr) => {
+      return { ...accu, [curr]: 0 }
+    }, { role });
+  });
+}
+
 export const getExpChartData = (jsons, keywords) => {
-  const data = getDefault2dChartData(keywords);
+  const data = getDefaultExpChartData(keywords);
   for (const json of jsons) {
     const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
     const set = new Set(toWordArray(src));
@@ -121,6 +129,31 @@ export const getExpChartData = (jsons, keywords) => {
       for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
     } else if (set.has('engineer') || set.has('developer')) {
       const obj = data.find(elem => elem.seniority === 'md');
+      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
+    }
+  }
+  return data;
+}
+
+export const getRoleChartData = (jsons, keywords) => {
+  const data = getDefaultRoleChartData(keywords);
+  for (const json of jsons) {
+    const src = `${json.title} ${json.tags} ${json.description}`.toLowerCase();
+    const set = new Set(toWordArray(src));
+    if (set.has('frontend') || set.has('front-end')) {
+      const obj = data.find(elem => elem.role === 'frontend');
+      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
+    } else if (set.has('backend') || set.has('back-end')) {
+      const obj = data.find(elem => elem.role === 'backend');
+      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
+    } else if (set.has('ios') || set.has('andriod') || set.has('mobile')) {
+      const obj = data.find(elem => elem.role ===  'mobile');
+      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
+    } else if (set.has('devops') || set.has('sre') || set.has('reliability')) {
+      const obj = data.find(elem => elem.role === 'devops');
+      for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
+    } else {
+      const obj = data.find(elem => elem.role === 'fullstack');
       for (const keyword of keywords) if (set.has(keyword)) obj[keyword] += 1;
     }
   }

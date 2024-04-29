@@ -1,7 +1,7 @@
 import React from "react";
 import { Context } from "../compound/Content";
 import Section from "./Section";
-import { filterJobPostJSONs, getTags, toWordArray } from "../../common/jsonHelper";
+import { filterJobPostJSONs, getTags, toWordArray, getDefaultExpChartData, getDefaultRoleChartData } from "../../common/jsonHelper";
 import { getJobPostJSONs } from "../../common/restClient";
 import { Box, Button, InputBase } from "@mui/material";
 import { REMOTIVE_API_URL_DEV } from "../../data/constant";
@@ -9,10 +9,19 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const SearchSection = () => {
 
-  const { setJobPostJSONs, setTags } = React.useContext(Context);
+  const {
+    setJobPostJSONs,
+    setTags,
+    setBarChartData,
+    setStackedBarChartData,
+    setLineChartData,
+    setPieChartData
+  } = React.useContext(Context);
+  const defaultExpChartData = getDefaultExpChartData();
+  const defaultRoleChartData = getDefaultRoleChartData();
   const [input, setInput] = React.useState('');
   const sectionSx = {};
-  const boxSx = {
+  const inputBoxSx = {
     display: 'flex',
     alignItems: 'center',
     borderRadius: '4px',
@@ -28,9 +37,21 @@ const SearchSection = () => {
   const inputBaseSx = {
     fontSize: '.75rem'
   };
+  const btnBoxSx = {
+    display: 'flex',
+  };
   const handleInput = (event) => setInput(event.target.value);
+  const handleClear = () => {
+    setJobPostJSONs([]);
+    setTags([]);
+    setBarChartData(defaultRoleChartData);
+    setStackedBarChartData(defaultRoleChartData);
+    setLineChartData(defaultExpChartData);
+    setPieChartData([]);
+  }
   const handleSearch = async () => {
     try {
+      handleClear();
       const jobPostJSONs = await getJobPostJSONs(REMOTIVE_API_URL_DEV);
       const keywords = toWordArray(input);
       const filteredJobPostJONs = filterJobPostJSONs(jobPostJSONs, keywords);
@@ -42,11 +63,14 @@ const SearchSection = () => {
   }
   return (
     <Section sectionSx={sectionSx}>
-      <Box sx={boxSx}>
+      <Box sx={inputBoxSx}>
         <SearchIcon htmlColor="grey" />
         <InputBase inputProps={inputProps} size="small" fullWidth sx={inputBaseSx} placeholder="type in keywords split by white spaces" onChange={handleInput}></InputBase>
       </Box>
-      <Button variant="contained" onClick={handleSearch} size="small" disableElevation disableRipple>Search</Button>
+      <Box sx={btnBoxSx}>
+        <Button variant="contained" onClick={handleSearch} size="small" disableElevation disableRipple sx={{m: .5}}>Search</Button>
+        <Button variant="contained" onClick={handleClear} size="small" disableElevation disableRipple sx={{m: .5}}>Clear</Button>
+      </Box>
     </Section>
   );
 }

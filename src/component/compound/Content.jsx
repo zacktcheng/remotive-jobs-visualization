@@ -2,18 +2,19 @@ import React from "react";
 import { Grid } from "@mui/material";
 import ControlPanel from "./ControlPanel";
 import Visualizations from "./Visualizations";
-import { getDefault2dChartData } from "../../common/jsonHelper";
+import { getDefaultExpChartData, getDefaultRoleChartData } from "../../common/jsonHelper";
 
 export const Context = React.createContext();
 
 const Content = () => {
 
-  const default2dChartData = getDefault2dChartData();
+  const defaultExpChartData = getDefaultExpChartData();
+  const defaultRoleChartData = getDefaultRoleChartData();
   const [jobPostJSONs, setJobPostJSONs] = React.useState([]);
   const [tags, setTags] = React.useState([]);
-  const [barChartData, setBarChartData] = React.useState(default2dChartData);
-  const [stackedBarChartData, setStackedBarChartData] = React.useState(default2dChartData);
-  const [lineChartData, setLineChartData] = React.useState(default2dChartData);
+  const [barChartData, setBarChartData] = React.useState(defaultRoleChartData);
+  const [stackedBarChartData, setStackedBarChartData] = React.useState(defaultRoleChartData);
+  const [lineChartData, setLineChartData] = React.useState(defaultExpChartData);
   const [pieChartData, setPieChartData] = React.useState([]);
   const contextProviderValues = {
     jobPostJSONs, setJobPostJSONs,

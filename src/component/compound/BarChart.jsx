@@ -4,7 +4,7 @@ import DraggableDialog from "../base/DraggableDialog";
 import BarChartSvg from "../chartSvg/BarChartSvg";
 import BarChartIcon from '@mui/icons-material/BarChart';
 import Toggles from "../base/Toggles";
-import { getExpChartData } from "../../common/jsonHelper";
+import { getRoleChartData } from "../../common/jsonHelper";
 
 const BarChart = ({ toggleds }) => {
 
@@ -12,7 +12,7 @@ const BarChart = ({ toggleds }) => {
   const [subToggled, setSubToggled] = React.useState();
   const handleChange = (event, nextSubToggled) => {
     setSubToggled(nextSubToggled);
-    setBarChartData(getExpChartData(jobPostJSONs, [nextSubToggled]));
+    setBarChartData(getRoleChartData(jobPostJSONs, [nextSubToggled]));
   }
   const openable = toggleds && toggleds instanceof Array && toggleds.length > 0;
 

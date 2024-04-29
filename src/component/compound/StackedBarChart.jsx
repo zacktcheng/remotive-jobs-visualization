@@ -2,9 +2,8 @@ import React from "react";
 import { Context } from "./Content";
 import Section from "../base/Section";
 import StackedBarChartSvg from "../chartSvg/StackedBarChartSvg";
-import BarChartSvg from "../chartSvg/BarChartSvg";
 import Toggles from "../base/Toggles";
-import { getExpChartData } from "../../common/jsonHelper";
+import { getRoleChartData } from "../../common/jsonHelper";
 import BarChart from "./BarChart";
 
 const StackedBarChart = () => {
@@ -13,7 +12,7 @@ const StackedBarChart = () => {
   const [toggleds, setToggleds] = React.useState(() => []);
   const handleChange = (event, nextToggleds) => {
     setToggleds(nextToggleds);
-    setStackedBarChartData(getExpChartData(jobPostJSONs, nextToggleds));
+    setStackedBarChartData(getRoleChartData(jobPostJSONs, nextToggleds));
   }
 
   return (

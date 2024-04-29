@@ -6,3 +6,4 @@ export const PROG_LANGS = ['bash', 'c', 'c++', 'c#', 'closure', 'cobol', 'coffee
 export const LIB_FRAMEWORKS = ['react', 'vue', 'augular', 'drupal', 'svelte', 'jquery', 'node', 'express', 'django', 'rails', 'spring', 'cake', 'flask', 'laravel', '.net', 'meteor', 'symfony', 'koa'];
 export const SPECIAL_CHAR_REGEX = /[&\/\, ()$~%.'":*?<>{}]/gi;
 export const SENIORITIES = ['jr', 'md', 'sr', 'ld/mgr'];
+export const POP_DEV_ROLES = ['frontend', 'backend', 'fullstack', 'mobile', 'devops'];
