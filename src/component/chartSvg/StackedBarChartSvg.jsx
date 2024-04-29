@@ -40,7 +40,7 @@ const StackedBarChartSvg = ({ data, dimension }) => {
   const ref = React.useRef();
   const key = Object.keys(data[0])[0];
   const domain = { x: data.map(elem => elem[key]), y: [0, getYDomain(data, key)] };
-  const text = { x: key, y: 'value' };
+  const text = { x: key, y: 'frequency' };
   const { padding, margin, length } = getPaddingMarginLength(dimension);
 
   React.useEffect(() => {

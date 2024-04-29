@@ -14,7 +14,7 @@ const PaperComponent = (props) => {
   );
 }
 
-const DraggableDialog = ({ title, icon, children }) => {
+const DraggableDialog = ({ title, icon, openable, children }) => {
 
   const [open, setOpen] = React.useState(false);
   const handleClick = () => setOpen(true);
@@ -22,7 +22,7 @@ const DraggableDialog = ({ title, icon, children }) => {
 
   return (
     <>
-      <Button variant="outlined" size="small" onClick={handleClick} startIcon={icon}>{title}</Button>
+      <Button variant="outlined" size="small" onClick={handleClick} startIcon={icon} disabled={!openable}>{title}</Button>
       <Dialog
       open={open}
       onClose={handleClose}

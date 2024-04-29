@@ -19,7 +19,8 @@ const appendBars = (xScale, yScale, height, margin, data, key, value, selection)
 const BarChartSvg = ({ data, dimension }) => {
   const ref = React.useRef();
   const attrs = Object.keys(data[0]), key = attrs[0], value = attrs[1];
-  const domain = { x: data.map(elem => elem[key]), y: [0, data.map(elem => elem[value]).sort((a, b) => b - a)[0]] };
+  const domain = { x: data.map(elem => elem[key]), y: [0, Math.max(...(data.map(elem => elem[value])))] };
+  if (domain.y[1] === 0) domain.y[1] = 1e+2;
   const text = { x: key, y: value };
   const { padding, margin, length } = getPaddingMarginLength(dimension);
 

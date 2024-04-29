@@ -14,9 +14,10 @@ const BarChart = ({ toggleds }) => {
     setSubToggled(nextSubToggled);
     setBarChartData(getExpChartData(jobPostJSONs, [nextSubToggled]));
   }
+  const openable = toggleds && toggleds instanceof Array && toggleds.length > 0;
 
   return (
-    <DraggableDialog title={'Detail'} icon={<BarChartIcon />}>
+    <DraggableDialog title={'Detail'} icon={<BarChartIcon />} openable={openable}>
       <Toggles btnTxts={toggleds} handleChange={handleChange} toggleds={subToggled} />
       <BarChartSvg data={barChartData} dimension={{ x: 400, y: 400 }} />
     </DraggableDialog>
