@@ -9,10 +9,9 @@ import PieChart from "./PieChart";
 const Visualizations = () => {
 
   const tabTitles = ['Job Posts', 'Stacked Bar Chart', 'Line Chart', 'Pie Chart'];
-  const visSx = {};
 
   return (
-    <Section title={'Visualization'} subheader={'Render filtered data'} sectionSx={visSx}>
+    <Section title={'Visualization'} description={'Render filtered data'}>
       <Tabs titles={tabTitles}>
         <JobPosts />
         <StackedBarChart />

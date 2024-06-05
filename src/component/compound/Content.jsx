@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import Section from "../base/Section";
 import ControlPanel from "./ControlPanel";
 import Visualizations from "./Visualizations";
 import { getDefaultExpChartData, getDefaultRoleChartData } from "../../common/jsonHelper";
@@ -24,13 +24,16 @@ const Content = () => {
     lineChartData, setLineChartData,
     pieChartData, setPieChartData
   };
+  const sectionSx = {
+    border: 'none'
+  };
 
   return (
     <Context.Provider value={contextProviderValues}>
-      <Grid container spacing={1}>
-        <Grid item xs='auto'><ControlPanel /></Grid>
-        <Grid item xs><Visualizations /></Grid>
-      </Grid>
+      <Section sectionSx={sectionSx}>
+        <ControlPanel />
+        <Visualizations />
+      </Section>
     </Context.Provider>
   );
 }

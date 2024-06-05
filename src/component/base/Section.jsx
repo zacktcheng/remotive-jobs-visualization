@@ -1,17 +1,19 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, Stack, Typography } from "@mui/material";
 
-const Section = ({ title, subheader, sectionSx, children }) => {
+const Section = ({ title, description, sectionSx, children }) => {
   
   const cardSx = {
-    ...sectionSx,
-    overflow: 'auto'
+    overflow: 'auto',
+    p: 1,
+    ...sectionSx
   };
 
   return (
     <Card variant='outlined' sx={cardSx}>
-      {title && <CardHeader title={title} subheader={subheader} />}
-      <CardContent>{children}</CardContent>
+      {title && <Typography variant="h6" noWrap>{title}</Typography>}
+      {description && <Typography variant="subtitle2" gutterBottom={false}>{description}</Typography>}
+      <Stack spacing={title ? .5 : 1}>{children}</Stack>
     </Card>
   );
 }
