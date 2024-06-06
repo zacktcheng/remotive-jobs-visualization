@@ -56,8 +56,8 @@ const Search = () => {
     }
   }
   return (
-    <Grid container spacing={1}>
-      <Grid xs={8}>
+    <Grid container alignItems="center" gap={1}>
+      <Grid xs>
         <Box sx={inputBoxSx}>
           <SearchIcon color="primary" />
           <InputBase inputProps={inputProps} size="small" fullWidth sx={inputBaseSx} placeholder="Type in keywords split by white spaces" onChange={handleInput}></InputBase>
